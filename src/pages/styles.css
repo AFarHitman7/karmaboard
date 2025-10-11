@@ -1,75 +1,133 @@
+/* ==============================================
+  Base Imports & Global Styles
+  ==============================================
+*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #220f08;
+  color: #fbf8f8;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* ==============================================
+  Keyframe Animations
+  ==============================================
+*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==============================================
+  Main Page Layout & Navbar
+  ==============================================
+*/
 .page {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  padding: 0.5rem 1rem; /* Responsive padding */
   width: 100%;
   background-color: #220f08;
   position: sticky;
-  z-index: 3;
+  z-index: 10;
   top: 0;
   left: 0;
 }
+
 .logo {
-  height: 4rem;
-  padding: 0.85rem 3rem;
+  height: 2.5rem;
+  padding: 0.5rem 0rem;
 }
+
 .title {
-  font-size: 3rem;
-  padding: 0 2rem;
-  letter-spacing: 15%;
+  font-size: 1.3rem;
+  padding: 0.2rem 0;
+  letter-spacing: 0.1em;
   font-family: "Montserrat", sans-serif;
+  text-align: right;
 }
 
 .main-container {
   display: flex;
-  align-items: top;
-  gap: 2rem;
-  padding: 0rem 2rem;
-  height: 85vh;
+  flex-direction: column; /* Mobile first: stack columns */
+  gap: 4rem;
+  padding: 0 1rem; /* Responsive padding */
 }
 
+/* ==============================================
+  Monthly Leaderboard Section
+  ==============================================
+*/
 .monthly {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5rem 1rem;
-  width: 50%;
+  padding: 1rem;
+  width: 100%; /* Full width on mobile */
   background-color: #fbf8f8;
   border-radius: 1rem;
   color: #220f08;
+  animation: slideUp 0.6s ease-out;
 }
 
 .monthly-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0rem;
   width: 100%;
-  overflow: scroll;
+  max-height: 80vh; /* Set a max height for scroll on mobile/tablet */
+  overflow-y: auto;
   border-radius: 1rem;
 }
 
 .monthly-heading {
   font-family: "Montserrat", sans-serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
   position: sticky;
+  top: 0;
+  background: #fbf8f8;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+  z-index: 2;
 }
 
 .monthly-cards {
@@ -84,9 +142,10 @@
   background-color: #462913;
   color: #fbf8f8;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 2rem;
+  flex-direction: column; /* Stack content on mobile */
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
   border-radius: 1rem;
   font-family: "Inter", sans-serif;
 }
@@ -94,7 +153,6 @@
 .rank1 {
   background-color: #81611c;
 }
-
 .rank2 {
   background-color: #6e5949;
 }
@@ -107,22 +165,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 40%;
-  font-size: 1.5rem;
+  width: 100%;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .m-card-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
 }
 
 .m-karma {
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.12);
-  font-size: 1.1rem;
-  padding: 1rem 1.3rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.3rem;
   display: flex;
   gap: 0.4rem;
@@ -146,27 +204,25 @@
   text-align: right;
 }
 
-.teams {
-  align-items: center;
-  width: 50%;
-  border-radius: 1rem;
-  height: 100%;
-}
-
+/* ==============================================
+  Teams Section
+  ==============================================
+*/
 .team-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
   width: 100%;
-  height: 100%;
+  animation: slideUp 0.7s ease-out;
 }
 
 .team-leaderboard {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
-  gap: 0.6rem;
-  height: fit-content;
+  gap: 0.8rem;
 }
 
 .team-card {
@@ -174,26 +230,24 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10rem;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   background-color: #fbf8f8;
   color: #5a3316;
-  min-width: 16rem;
-}
-
-.team-card:hover {
-  cursor: pointer;
-  background-color: #5a3316;
-  color: #fbf8f8;
+  min-width: 220px;
   transition: all 0.3s ease-in-out;
 }
 
+.team-card:hover,
 .selected {
+  cursor: pointer;
   background-color: #5a3316;
   color: #fbf8f8;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .t-rank {
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
@@ -211,7 +265,7 @@
 }
 
 .t-name {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
@@ -220,18 +274,53 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5rem 1rem;
   border-radius: 1rem;
-  overflow: scroll;
   width: 100%;
-  height: 100%;
+  height: 88%;
 }
 
 .team-container {
-  position: relative;
   width: 100%;
-  overflow: scroll;
+  max-height: 80vh; /* Set a max height for scroll on mobile/tablet */
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 1rem;
+}
+
+.t-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  width: 100%;
+  color: #fbf8f8;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: #220f08;
+  padding: 0.5rem 0;
+  z-index: 2;
+}
+
+.t-card-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tc-karma {
+  background-color: rgba(0, 0, 0, 0.12);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tc-karma p {
+  display: inline;
+  font-weight: 600;
 }
 
 .team-members {
@@ -241,56 +330,42 @@
   flex-direction: column;
 }
 
-.t-title {
-  font-family: "Montserrat", sans-serif;
-  font-size: 2rem;
-  width: 100%;
-  color: #fbf8f8;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  position: sticky;
-}
-
 .t-message {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #ffffff99;
-}
-
-.t-card-section {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  justify-content: end;
-  width: 50%;
-}
-
-.overall {
-  width: 100%;
+  text-align: center;
   padding: 2rem;
 }
 
+/* ==============================================
+  Overall Rankings Table
+  ==============================================
+*/
+.overall {
+  width: 100%;
+  padding: 0 1rem 2rem 1rem;
+  animation: slideUp 0.8s ease-out;
+}
+
 .table-wrapper {
-  background-color: #fbf8f8; /* Dark brown background for the whole wrapper */
-  border-radius: 1rem; /* Rounded corners for the entire block */
-  padding: 1rem; /* Some padding inside the wrapper */
-  margin: 2rem auto; /* Center the table and add vertical margin */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  background-color: #fbf8f8;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 100%;
 }
 
-/* Overall Rankings Heading */
 .overall-rankings-heading {
-  color: #333;
-  font-family: "montserrat", sans-serif; /* Use Montserrat font */
-  font-weight: 600; /* Semi-bold */
-  text-align: center; /* Center the heading */
-  font-size: 2rem; /* Larger font size */
-  padding-bottom: 1rem; /* Space below the heading */
-  border-bottom: 1px solid #a0aec0; /* Light separator */
-  margin-bottom: 0; /* Remove default margin */
+  color: #220f08;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.8rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
 }
 
 .table-scroll-container {
@@ -299,40 +374,210 @@
   border-radius: 0.5rem; /* Rounded corners for the scroll container */
 }
 
-/* The Table Itself */
+/* Mobile-First Responsive Table */
 .overall-rankings-table {
+  display: block;
   width: 100%;
-  border-collapse: collapse; /* Ensure cells touch */
+  border-collapse: collapse;
 }
 
-/* Header Cells (<th>) */
-.overall-rankings-table th {
-  background-color: #1a202c; /* Same dark brown as background */
-  color: #a0aec0; /* Slightly muted white for headers */
-  padding: 12px 15px; /* Padding for header cells */
-  text-align: left;
-  font-weight: normal; /* Often headers look better with normal weight */
-  text-transform: uppercase; /* Uppercase text */
-  font-size: 0.9rem; /* Smaller font for headers */
-  border-bottom: none; /* No bottom border for individual header cells */
+.overall-rankings-table thead {
+  display: none; /* Hide headers on mobile */
 }
 
-/* Data Cells (<td>) */
-.overall-rankings-table td {
-  background-color: #2d3748; /* A slightly lighter brown for data rows */
-  color: #edf2f7; /* Light text color */
-  padding: 15px; /* More padding for data cells */
-  text-align: left;
-  border-bottom: 1px solid #4a5568; /* Darker border between rows */
-  font-size: 1rem;
+.overall-rankings-table tbody {
+  display: block;
+  width: 100%;
 }
 
-/* Styling for the table rows (<tr>) */
 .overall-rankings-table tr {
-  /* No direct background on tr to allow td background to show */
+  display: block;
+  margin-bottom: 0.8rem;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  color: #edf2f7;
+  background-color: #2d3748;
+}
+.overall-rankings-table tr:last-of-type {
+  margin-bottom: 0;
 }
 
-/* Remove bottom border from the last row's cells */
-.overall-rankings-table tbody tr:last-child td {
-  border-bottom: none;
+.overall-rankings-table td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #4a5568; /* Dark theme border */
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overall-rankings-table td::before {
+  content: attr(data-label);
+  font-weight: bold;
+  color: #a0aec0; /* Lighter color for labels */
+  padding-right: 1rem;
+  text-align: left;
+}
+
+/* ==============================================
+  Media Queries for Responsiveness
+  ==============================================
+*/
+
+/* Medium screens (tablets) and up */
+/* ==============================================
+  Desktop / Tablet Table Fix
+  ==============================================
+*/
+@media (min-width: 768px) {
+  .navbar {
+    padding: 0.5rem 0rem;
+  }
+  .logo {
+    height: 4rem;
+    padding: 0.85rem 3rem;
+  }
+
+  .title {
+    font-size: 3rem;
+    padding: 0 2rem;
+    letter-spacing: 15%;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  .m-card {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+    font-family: "Inter", sans-serif;
+  }
+
+  .m-name {
+    font-family: "Poppins", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 40%;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  .m-card-section {
+    width: 50%;
+  }
+
+  .m-karma {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.12);
+    font-size: 1.1rem;
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .teams {
+    width: 90%;
+  }
+
+  .team-card {
+    min-width: 14rem;
+  }
+
+  .tc-karma {
+    padding: 1rem 1.3rem;
+  }
+
+  .t-card-section {
+    justify-content: end;
+    gap: 2rem;
+  }
+
+  .overall-rankings-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: table;
+  }
+
+  .overall-rankings-table thead {
+    display: table-header-group;
+    background-color: #1a202c;
+  }
+
+  .overall-rankings-table thead th {
+    color: #a0aec0;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #4a5568;
+  }
+
+  .overall-rankings-table tbody {
+    display: table-row-group;
+    background-color: #2d3748;
+  }
+
+  .overall-rankings-table tr {
+    display: table-row;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .overall-rankings-table tr:hover {
+    background-color: #3c475a;
+  }
+
+  .overall-rankings-table td {
+    display: table-cell;
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #4a5568;
+    color: #edf2f7;
+  }
+
+  .overall-rankings-table td::before {
+    content: none; /* remove mobile labels */
+  }
+}
+/* 
+  .overall-rankings-table th {
+    display: table-cell;
+    background-color: #1a202c;
+    color: #a0aec0;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 12px 15px;
+    text-align: left;
+  } */
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+  .main-container {
+    flex-direction: row; /* Side-by-side layout */
+    align-items: flex-start;
+    gap: 1rem;
+    height: 85vh;
+  }
+  .monthly {
+    width: 80%;
+    height: 97%;
+  }
+  .team-section {
+    width: 90%;
+    height: 100%;
+  }
+  .monthly-container,
+  .team-container {
+    max-height: 100%; /* Remove max-height on desktop */
+  }
 }

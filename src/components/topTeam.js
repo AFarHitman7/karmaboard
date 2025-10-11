@@ -73,10 +73,10 @@ const TopTeam = ({ students }) => {
                     {index + 1}. {student.full_name}
                   </div>
                   <div className="t-card-section">
-                    <div className="m-karma">
+                    <div className="tc-karma">
                       <p>{student.monthly_karma}</p> Monthly
                     </div>
-                    <div className="m-karma">
+                    <div className="tc-karma">
                       <p>{student.karma}</p> Overall
                     </div>
                   </div>

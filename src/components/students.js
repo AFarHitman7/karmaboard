@@ -22,13 +22,15 @@ const StudentsTable = ({ students }) => {
           <tbody>
             {students.map((student, index) => (
               <tr key={student.user_id}>
-                <td>{index + 1}</td>
-                <td>{student.full_name}</td>
-                <td>{student.muid || "N/A"}</td>
-                <td>{student.department}</td>
-                <td>{student.karma}</td>
+                <td data-label="Rank">{index + 1}</td>
+                <td data-label="Name">{student.full_name}</td>
+                <td data-label="Muid">{student.muid || "N/A"}</td>
+                <td data-label="Department" d>
+                  {student.department}
+                </td>
+                <td data-label="Karma">{student.karma}</td>
 
-                <td>{student.team || "N/A"}</td>
+                <td data-label="Team">{student.team || "N/A"}</td>
               </tr>
             ))}
           </tbody>

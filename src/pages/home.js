@@ -81,9 +81,8 @@ export default function Home() {
   return (
     <div className="page">
       <nav className="navbar">
-        <img className="logo" src="/mutly.png" alt="Mulearn logo" />
-
         <div className="title">Karmayodha</div>
+        <img className="logo" src="/mutly.png" alt="Mulearn logo" />
       </nav>
       <div className="main-container">
         <div className="monthly">
