@@ -89,6 +89,32 @@ export default function Dashboard() {
     }
   }
 
+  async function removeTeam(event, studentId) {
+    event.preventDefault();
+    try {
+      setError(null);
+      const { data: updatedStudent, error } = await supabase
+        .from("students")
+        .update({ team: null })
+        .eq("user_id", studentId)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+
+      if (updatedStudent) {
+        setResults((currentResults) =>
+          currentResults.map((student) =>
+            student.user_id === studentId ? updatedStudent : student
+          )
+        );
+      } else {
+        console.warn(`Could not find or update student with ID: ${studentId}`);
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
   if (loading && !user) {
     return (
       <div className="auth-page">
@@ -157,9 +183,15 @@ export default function Dashboard() {
                     type="submit"
                     className="auth-button secondary go-btn"
                   >
-                    Go
+                    Assign
                   </button>
                 </form>
+                <button
+                  className="auth-button secondary go-btn"
+                  onClick={(e) => removeTeam(e, student.user_id)}
+                >
+                  Remove Team
+                </button>
               </div>
             ))
           : !loading &&
