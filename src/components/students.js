@@ -20,7 +20,7 @@ const StudentsTable = ({ students }) => {
             </tr>
           </thead>
           <tbody>
-            {students.map((student, index) => (
+            {students.slice(0, 60).map((student, index) => (
               <tr key={student.user_id}>
                 <td data-label="Rank">{index + 1}</td>
                 <td data-label="Name">{student.full_name}</td>
