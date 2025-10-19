@@ -163,6 +163,8 @@ export default function Dashboard() {
                 <p className="result-details">
                   Rank: {student.rank} | Karma: {student.karma} | Team:{" "}
                   <b>{student.team || "None"}</b>
+                  <br />
+                  {student.muid}
                 </p>
                 <form
                   onSubmit={(e) => assignTeam(e, student.user_id)}
