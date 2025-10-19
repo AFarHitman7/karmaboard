@@ -236,6 +236,14 @@ body {
   Teams Section
   ==============================================
 */
+
+.team-section-container {
+  display: flex;
+  width: 100%;
+  height: 97%;
+  overflow-x: hidden;
+}
+
 .team-section {
   display: flex;
   flex-direction: column;
@@ -243,6 +251,7 @@ body {
   gap: 2rem;
   width: 100%;
   animation: slideUp 0.7s ease-out;
+  overflow: hidden;
 }
 
 .team-leaderboard {
@@ -261,8 +270,9 @@ body {
   padding: 0.8rem 1.5rem;
   background-color: #fbf8f8;
   color: #5a3316;
-  min-width: 220px;
   transition: all 0.3s ease-in-out;
+  min-width: 150px;
+  gap: 1rem;
 }
 
 .team-card:hover,
@@ -275,7 +285,7 @@ body {
 }
 
 .t-rank {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
@@ -287,15 +297,15 @@ body {
 }
 
 .t-karma {
-  font-size: 0.9rem;
+  font-size: 0.6rem;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
 
 .t-name {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-family: "Poppins", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .teams {
@@ -310,9 +320,7 @@ body {
 .team-container {
   width: 100%;
   max-height: 80vh; /* Set a max height for scroll on mobile/tablet */
-  overflow-y: auto;
   overflow-x: hidden;
-  border-radius: 1rem;
 }
 
 .t-title {
@@ -357,7 +365,6 @@ body {
   gap: 1rem;
   flex-direction: column;
 }
-
 .t-message {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -529,7 +536,19 @@ body {
   }
 
   .team-card {
-    min-width: 14rem;
+    min-width: 6rem;
+  }
+
+  .t-rank {
+    font-size: 2rem;
+  }
+
+  .t-name {
+    font-size: 1.2rem;
+  }
+
+  .t-karma {
+    font-size: 0.9rem;
   }
 
   .tc-karma {
@@ -537,6 +556,7 @@ body {
   }
 
   .t-card-section {
+    width: 60%;
     justify-content: end;
     gap: 2rem;
   }
@@ -606,18 +626,24 @@ body {
     flex-direction: row; /* Side-by-side layout */
     align-items: flex-start;
     gap: 1rem;
-    height: 85vh;
+    height: 100vh;
   }
   .monthly {
     width: 80%;
     height: 97%;
   }
   .team-section {
-    width: 90%;
     height: 100%;
   }
   .monthly-container,
   .team-container {
     max-height: 100%; /* Remove max-height on desktop */
+  }
+  .team-section-container {
+    width: 80%;
+  }
+
+  .team-card {
+    min-width: 14rem;
   }
 }

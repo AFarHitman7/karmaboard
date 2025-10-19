@@ -140,7 +140,7 @@ export default function Home() {
           <h2 className="monthly-heading">Monthly Ranking</h2>
           <MonthlyKarma students={monthlyStudents} />
         </div>
-        <div className="teams">
+        <div className="team-section-container">
           <TopTeam students={monthlyStudents} />
         </div>
       </div>
