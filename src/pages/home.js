@@ -78,7 +78,8 @@ export default function Home() {
 
         const { data, error } = await supabase
           .from("campus_details")
-          .select("*");
+          .select("*")
+          .order("id", { ascending: false });
 
         if (error) {
           throw error;
