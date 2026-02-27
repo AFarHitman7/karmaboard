@@ -6,95 +6,57 @@ import TopTeam from "../components/topTeam";
 import "./styles.css";
 
 export default function Home() {
-  const [campusDetails, setCampusDetails] = useState({});
+  const [campusDetails, setCampusDetails] = useState([]);
   const [monthlyStudents, setMonthlyStudents] = useState([]);
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMonthlyStudents = async () => {
+    const fetchHomeData = async () => {
       try {
         setLoading(true);
+        setError(null);
+
         const today = new Date();
         const firstDayOfMonth = new Date(
           today.getFullYear(),
           today.getMonth(),
           1
         );
-        const startDate = firstDayOfMonth.toISOString().split("T")[0]; // A simpler way to format YYYY-MM-DD
+        const startDate = firstDayOfMonth.toISOString().split("T")[0];
 
-        const { data, error } = await supabase.rpc(
-          "get_students_with_monthly_karma",
-          { p_start_date: startDate }
-        );
+        const [monthlyResponse, studentsResponse, campusResponse] =
+          await Promise.all([
+            supabase.rpc("get_students_with_monthly_karma", {
+              p_start_date: startDate,
+            }),
+            supabase
+              .from("students")
+              .select("*")
+              .order("rank", { ascending: true }),
+            supabase
+              .from("campus_details")
+              .select("*")
+              .order("id", { ascending: false }),
+          ]);
 
-        if (error) {
-          throw error;
-        }
+        if (monthlyResponse.error) throw monthlyResponse.error;
+        if (studentsResponse.error) throw studentsResponse.error;
+        if (campusResponse.error) throw campusResponse.error;
 
-        setMonthlyStudents(data);
+        setMonthlyStudents(monthlyResponse.data ?? []);
+        setStudents(studentsResponse.data ?? []);
+        setCampusDetails(campusResponse.data ?? []);
       } catch (error) {
         setError(error.message);
-        console.error("Error fetching students:", error.message);
+        console.error("Error fetching home data:", error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMonthlyStudents();
-  }, []);
-
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setLoading(true);
-
-        const { data, error } = await supabase
-          .from("students")
-          .select("*")
-          .order("rank", { ascending: true });
-
-        if (error) {
-          throw error;
-        }
-
-        setStudents(data);
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching students:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStudents();
-  }, []);
-
-  useEffect(() => {
-    const fetchCampusDetails = async () => {
-      try {
-        setLoading(true);
-
-        const { data, error } = await supabase
-          .from("campus_details")
-          .select("*")
-          .order("id", { ascending: false });
-
-        if (error) {
-          throw error;
-        }
-
-        setCampusDetails(data);
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching campus Details:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCampusDetails();
+    fetchHomeData();
   }, []);
 
   if (loading) {
@@ -111,6 +73,8 @@ export default function Home() {
     maximumFractionDigits: 0,
   });
 
+  const latestCampusDetails = campusDetails[0];
+
   return (
     <div className="page">
       <nav className="navbar">
@@ -121,19 +85,21 @@ export default function Home() {
       <div className="campus-details">
         <div className="detailbox">
           <p>Campus Rank</p>
-          {campusDetails[0].rank}
+          {latestCampusDetails?.rank ?? "-"}
         </div>
         <div className="detailbox">
           <p>Campus Karma</p>
-          {kFormatter.format(campusDetails[0].karma)}
+          {latestCampusDetails?.karma
+            ? kFormatter.format(latestCampusDetails.karma)
+            : "-"}
         </div>
         <div className="detailbox">
           <p>Active members</p>
-          {campusDetails[0].active_members}
+          {latestCampusDetails?.active_members ?? "-"}
         </div>
         <div className="detailbox">
           <p>Total members</p>
-          {campusDetails[0].total_members}
+          {latestCampusDetails?.total_members ?? "-"}
         </div>
       </div>
       <div className="main-container">
